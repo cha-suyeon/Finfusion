@@ -1,0 +1,10 @@
+langchain
+sentence-transformers
+faiss-cpu
+sec-edgar-downloader
+beautifulsoup4
+pandas
+llama-index
+chromadb
+ragas
+jupyter
