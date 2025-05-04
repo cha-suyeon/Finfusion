@@ -1,4 +1,3 @@
-langchain
 sentence-transformers
 faiss-cpu
 sec-edgar-downloader
@@ -8,3 +7,7 @@ llama-index
 chromadb
 ragas
 jupyter
+rank_bm25
+langchain>=0.1.16
+langchain-community>=0.0.18
+langchain-ollama>=0.1.1
