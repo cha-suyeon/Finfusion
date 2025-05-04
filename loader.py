@@ -14,6 +14,7 @@ def fetch_sec_10k(ticker: str, limit=1):
     dl = Downloader("SoosungEng", "dronesquare@soosungeng.com")
     dl.get("10-K", ticker, limit=limit)
 
+
 def extract_clean_10k_text(raw_text: str) -> str:
     """
     Item 1~Item 8 사이의 구간만 추출하여 잡음 제거
@@ -33,7 +34,11 @@ def extract_clean_10k_text(raw_text: str) -> str:
     clean = ''.join([c if 32 <= ord(c) <= 126 or c in '\n\r\t' else ' ' for c in section])
     return clean
 
+
 def get_latest_10k_text(ticker: str, base_dir="sec-edgar-filings") -> str:
+    import glob, os
+    from bs4 import BeautifulSoup
+
     search_path = os.path.join(base_dir, ticker, "10-K", "*", "full-submission.txt")
     matches = glob.glob(search_path)
     if not matches:
@@ -43,22 +48,26 @@ def get_latest_10k_text(ticker: str, base_dir="sec-edgar-filings") -> str:
     with open(latest_file, encoding="utf-8", errors="ignore") as f:
         full_text = f.read()
 
-    # 1. 첫 번째 <DOCUMENT> block 중 TYPE이 10-K인 것을 추출
     docs = full_text.split("<DOCUMENT>")
-    ten_k_html = ""
+    candidates = []
     for doc in docs:
-        if "<TYPE>10-K" in doc and "<TEXT>" in doc:
-            try:
-                ten_k_html = doc.split("<TEXT>")[1].strip()
-                break
-            except IndexError:
-                continue
+        doc_type = ""
+        if "<TYPE>" in doc:
+            doc_type = doc.split("<TYPE>")[1].split("\n")[0].strip()
+        if "<TEXT>" in doc:
+            body = doc.split("<TEXT>")[1].strip()
+            candidates.append((doc_type, body))
 
-    if not ten_k_html:
-        raise ValueError("10-K HTML 본문을 찾을 수 없습니다.")
+    # 1순위: 10-K 텍스트
+    for dtype, body in candidates:
+        if dtype == "10-K":
+            soup = BeautifulSoup(body, "html.parser")
+            return soup.get_text(separator="\n")
 
-    # 2. HTML 파싱 및 <body> 추출
-    soup = BeautifulSoup(ten_k_html, "html.parser")
-    body_text = soup.body.get_text(separator="\n") if soup.body else soup.get_text()
-    
-    return extract_clean_10k_text(body_text)
+    # 2순위: EX-13 (텍스트형 리포트)
+    for dtype, body in candidates:
+        if dtype.startswith("EX-13") or dtype.startswith("EX-99"):
+            soup = BeautifulSoup(body, "html.parser")
+            return soup.get_text(separator="\n")
+
+    raise ValueError("No readable 10-K or EX-13 document found.")

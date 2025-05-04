@@ -1,40 +1,93 @@
-# llm_agent.py
-
-# from langchain.chat_models import ChatOllama
+import logging
+from typing import List
 from langchain_ollama import ChatOllama
+
+import config
 from retriever import retrieve_relevant_chunks
+from langchain.docstore.document import Document
 
-def build_prompt(query: str, contexts: list[str]) -> str:
-    context_text = "\n\n".join(contexts)
-    prompt = f"""
-            당신은 SEC 보고서를 분석하는 금융 애널리스트입니다.
-            아래는 Apple Inc.의 10-K 보고서에서 추출된 관련 정보입니다.
+logger = logging.getLogger(__name__)
 
-            ---------------------
-            {context_text}
-            ---------------------
+class LlmAgent:
+    """
+    금융 도메인 특화 ReAct + ToT 스타일 LLM 에이전트
+    """
+    def __init__(
+        self,
+        model_name: str = config.LLM_MODEL_NAME,
+        temperature: float = config.LLM_TEMPERATURE,
+        max_tokens: int = config.LLM_MAX_TOKENS
+    ):
+        logger.info("Initializing LLM: model=%s, temp=%.2f, max_tokens=%d", model_name, temperature, max_tokens)
+        self.llm = ChatOllama(
+            model=model_name,
+            temperature=temperature,
+            max_tokens=max_tokens
+        )
 
-            이제 다음 질문에 대해 단계적으로 분석하고, 가능한 경우 **정확한 숫자와 백분율을 포함하여** 응답해 주세요:
+    def build_prompt(self, query: str, docs: list[Document], ticker: str) -> str:
+        # 출처가 포함된 context 생성
+        sources = []
+        for doc in docs:
+            meta = doc.metadata
+            header = f"[Source: {meta.get('item', 'Unknown')} - {meta.get('item_title', '')}]"
+            content = f"{header}\n{doc.page_content.strip()}"
+            sources.append(content)
 
-            질문: {query}
+        context_text = "\n\n".join(sources)
 
-            답변 형식 예시:
-            1) 관련 수치를 문서에서 찾습니다.
-            2) 비교 또는 변화율을 계산합니다.
-            3) 투자자 입장에서 어떤 의미인지 해석합니다.
+        prompt = f"""You are a financial analyst specializing in SEC filings.
 
-            답변:
-            """
+                Below is context from {ticker}'s 10-K report:
 
-    return prompt
+                {context_text}
 
-def answer_question_with_context(query: str, ticker: str, top_k: int = 5) -> str:
-    docs = retrieve_relevant_chunks(query, ticker, top_k=top_k)
-    contexts = [doc.page_content for doc in docs]
+                Please analyze the following question step by step, and include exact figures and percentages whenever possible:
 
-    llm = ChatOllama(model="openhermes")
-    prompt = build_prompt(query, contexts)
+                Question: {query}
 
-    print("***LLM 프롬프트 입력 준비 완료")
-    response = llm.invoke(prompt)
-    return response.content
+                Example answer format:
+                1) Identify the relevant figures in the document.
+                2) Calculate any comparisons or rates of change.
+                3) Interpret what these findings mean from an investor’s perspective.
+
+                If the base value is not clearly stated, you may estimate it **only if there is strong supporting context**.
+                Otherwise, state that it is missing.
+
+                Answer:
+                """
+        
+        return prompt
+
+    def answer(
+        self,
+        query: str,
+        ticker: str,
+        top_k: int = config.TOP_K_FINAL
+    ) -> str:
+        """
+        1) retrieve_relevant_chunks 로 청크 검색
+        2) build_prompt 로 프롬프트 작성
+        3) LLM 호출 후 응답 반환
+        """
+        logger.info("Retrieving top %d chunks for ticker=%s, query=%s", top_k, ticker, query)
+        docs: List[Document] = retrieve_relevant_chunks(query, ticker, top_k=top_k)
+        # contexts = [doc.page_content for doc in docs]
+
+        prompt = self.build_prompt(query, docs, ticker)
+        logger.info("Prompt built, invoking LLM...")
+        response = self.llm.invoke(prompt)
+        logger.info("LLM response received")
+        return response.content
+
+# 편의 함수
+
+def answer_question_with_context(
+    query: str,
+    ticker: str,
+    top_k: int = config.TOP_K_FINAL
+) -> str:
+    agent = LlmAgent()
+    return agent.answer(query, ticker, top_k)
+
+answer_with_agent = answer_question_with_context
