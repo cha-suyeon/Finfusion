@@ -1,9 +1,9 @@
 
-🧠 Finfusion: RAG-Based Financial Analysis Assistant
+# 🧠 Finfusion: RAG-Based Financial Analysis Assistant
 
 **Finfusion** is a retrieval-augmented generation (RAG) system designed to analyze and summarize financial reports—specifically SEC 10-K filings. It integrates multi-stage document retrieval, dense embedding-based search, and advanced prompting strategies to provide interpretable, investment-grade insights.
 
-## Features
+## 🧩 Features
 
 - 🔍 **Hybrid Retriever**: BM25 + FAISS + RRF (Reciprocal Rank Fusion)
 - 🧠 **LLM Reasoning**: ReAct prompting, Tree-of-Thoughts, Query-Aware Re-ranking
@@ -11,7 +11,7 @@
 - 📄 **Item-Level Chunking**: Organizes documents by PART/ITEM sections
 - 💡 **Investment Memo Generator**: Generates concise summaries and risk assessments
 
-## Tech Stack
+## 🛠️ Tech Stack
 
 - **Language Model**: [Ollama](https://ollama.com/) + `openhermes`
 - **Vector Database**: FAISS
@@ -21,7 +21,7 @@
 - **Others**: LangChain, tqdm, PyMuPDF, BeautifulSoup
 
 
-## Setup Instructions
+## 🔧 Setup Instructions
 
 1. Create and Activate Virtual Environment
 
@@ -61,7 +61,7 @@ Or integrate into your own application using the provided modules:
 
 Currently optimized for 10-K filings from the [SEC EDGAR database](https://www.sec.gov/search-filings).
 
-## Folder Structure
+## 📂 Folder Structure
 
 ```kotlin
 Finfusion/
@@ -73,3 +73,5 @@ Finfusion/
 ├── parser/
 └── data/
 ```
+
+## References
