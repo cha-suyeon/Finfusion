@@ -8,7 +8,7 @@ from retriever import retrieve_relevant_chunks
 from llm_agent import answer_with_agent
 
 class FusionPipeline:
-    def __init__(self, base_dir="sec-edgar-filings", index_root="data/index"):
+    def __init__(self, base_dir="data", index_root="data/index"):
         self.base_dir = base_dir
         self.index_root = index_root
 
@@ -17,14 +17,24 @@ class FusionPipeline:
         if not os.path.isdir(idx_dir):
             print(f"[INFO] {ticker} 인덱스가 없으므로 생성합니다.")
             # 1) SEC 10-K 다운로드 (없으면)
-            fetch_sec_10k(ticker)
-            # 2) 텍스트 추출 → 청킹 → 인덱스 생성
+            fetch_sec_10k(ticker, limit=1, save_dir=self.base_dir)
+            print(f"[DONE] {ticker} 10-K 보고서 다운로드 완료")
+
+            # 2) 텍스트 추출
             raw = get_latest_10k_text(ticker, base_dir=self.base_dir)
+            print(f"[DONE] {ticker} 텍스트 추출 완료")
+
+            # 3) 청킹
             chunks = chunk_text_by_item(raw)
-            # 3) 인덱스 생성 (ticker, index_root로 전달)
-            create_faiss_index(chunks,
-                               ticker,
-                               index_root=self.index_root)
+            print(f"[DONE] {ticker} 청킹 완료 (총 {len(chunks)}개 청크)")
+
+            # 4) FAISS 인덱스 생성 (ticker, index_root로 전달)
+            create_faiss_index(
+                                chunks,
+                                index_dir=os.path.join(self.index_root, ticker)
+                                )
+            
+            print(f"[DONE] {ticker} 인덱스 생성 및 저장 완료 → {idx_dir}")
         else:
             print(f"[INFO] {ticker} 인덱스가 이미 존재합니다.")
 

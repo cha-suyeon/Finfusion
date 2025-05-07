@@ -38,24 +38,27 @@ class LlmAgent:
 
         prompt = f"""You are a financial analyst specializing in SEC filings.
 
-                Below is context from {ticker}'s 10-K report:
+                    Below is context from {ticker}'s 10-K report:
 
-                {context_text}
+                    {context_text}
 
-                Please analyze the following question step by step, and include exact figures and percentages whenever possible:
+                    Please analyze the following question step by step, and include exact figures and percentages **only if they are explicitly provided in the document.**
 
-                Question: {query}
+                    Question: {query}
 
-                Example answer format:
-                1) Identify the relevant figures in the document.
-                2) Calculate any comparisons or rates of change.
-                3) Interpret what these findings mean from an investor’s perspective.
+                    Example answer format:
+                    1) Identify the relevant figures in the document.
+                    2) Calculate any comparisons or rates of change (only when all required values are clearly stated).
+                    3) Interpret what these findings mean from an investor’s perspective.
 
-                If the base value is not clearly stated, you may estimate it **only if there is strong supporting context**.
-                Otherwise, state that it is missing.
+                    Important instructions:
+                    - Do NOT estimate or assume values that are not explicitly written.
+                    - If any required number is missing, clearly state that it is not available.
+                    - NEVER fabricate or guess numerical values under any circumstance.
+                    - If the document already contains a clear summary or conclusion relevant to the question, report it as is without additional interpretation or speculation.
 
-                Answer:
-                """
+                    Answer:
+                    """
         
         return prompt
 
