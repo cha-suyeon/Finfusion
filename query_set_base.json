@@ -1,0 +1,52 @@
+[
+    {
+      "id": 1,
+      "question": "What is the company’s primary business model and revenue drivers?",
+      "related_item": "Item 1"
+    },
+    {
+      "id": 2,
+      "question": "What were the total revenue and net income for the latest fiscal year?",
+      "related_item": "Item 8"
+    },
+    {
+      "id": 3,
+      "question": "What was the year-over-year revenue growth?",
+      "related_item": "Item 7/8"
+    },
+    {
+      "id": 4,
+      "question": "What are the top three risk factors disclosed in the report?",
+      "related_item": "Item 1A"
+    },
+    {
+      "id": 5,
+      "question": "Are there material legal proceedings that could impact financials?",
+      "related_item": "Item 3"
+    },
+    {
+      "id": 6,
+      "question": "How did each operating segment perform (revenue, margins)?",
+      "related_item": "Item 7"
+    },
+    {
+      "id": 7,
+      "question": "How have operating cash flow (OCF) and free cash flow (FCF) trended?",
+      "related_item": "Item 7/8"
+    },
+    {
+      "id": 8,
+      "question": "Did the company repurchase shares or issue dividends this year?",
+      "related_item": "Item 5"
+    },
+    {
+      "id": 9,
+      "question": "Which macroeconomic risks (e.g., inflation, tariffs) are highlighted?",
+      "related_item": "Item 1A"
+    },
+    {
+      "id": 10,
+      "question": "What strategic priorities did management emphasize for the next year?",
+      "related_item": "Item 7"
+    }
+  ]  

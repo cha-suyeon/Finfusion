@@ -1,96 +1,68 @@
+# llm_agent.py
 import logging
 from typing import List
 from langchain_ollama import ChatOllama
-
 import config
 from retriever import retrieve_relevant_chunks
 from langchain.docstore.document import Document
+from llm_template_generator import generate_answer_template_from_llm
 
 logger = logging.getLogger(__name__)
 
 class LlmAgent:
-    """
-    금융 도메인 특화 ReAct + ToT 스타일 LLM 에이전트
-    """
-    def __init__(
-        self,
-        model_name: str = config.LLM_MODEL_NAME,
-        temperature: float = config.LLM_TEMPERATURE,
-        max_tokens: int = config.LLM_MAX_TOKENS
-    ):
-        logger.info("Initializing LLM: model=%s, temp=%.2f, max_tokens=%d", model_name, temperature, max_tokens)
-        self.llm = ChatOllama(
-            model=model_name,
-            temperature=temperature,
-            max_tokens=max_tokens
-        )
+    def __init__(self, model_name=config.LLM_MODEL_NAME, temperature=config.LLM_TEMPERATURE, max_tokens=config.LLM_MAX_TOKENS):
+        self.llm = ChatOllama(model=model_name, temperature=temperature, max_tokens=max_tokens)
 
-    def build_prompt(self, query: str, docs: list[Document], ticker: str) -> str:
-        # 출처가 포함된 context 생성
+    def build_prompt(self, query: str, docs: list[Document], ticker: str, answer_template: list[str] | None = None) -> str:
+        if answer_template is None:
+            answer_template = generate_answer_template_from_llm(query)
+
         sources = []
         for doc in docs:
             meta = doc.metadata
-            header = f"[Source: {meta.get('item', 'Unknown')} - {meta.get('item_title', '')}]"
-            content = f"{header}\n{doc.page_content.strip()}"
-            sources.append(content)
+            header = f"[Year: {meta.get('year')}] [Item: {meta.get('item')} - {meta.get('item_title')}]"
+            sources.append(f"{header}\n{doc.page_content.strip()}")
 
         context_text = "\n\n".join(sources)
+        instructions = "\n".join([
+            "- Compare across years when relevant.",
+            "- Mention which year a number is from (e.g., \"in 2023, revenue was...\").",
+            "- Do NOT fabricate numbers or guess.",
+            "- If a value is missing, state it clearly.",
+            "- If figures from multiple fiscal years are available, compare them.",
+            "- Use only explicitly stated numbers. Do not estimate."
+        ])
 
-        prompt = f"""You are a financial analyst specializing in SEC filings.
+        if answer_template:
+            instructions += "\n\nPlease follow these steps:\n"
+            instructions += "\n".join(f"{i+1}. {step}" for i, step in enumerate(answer_template))
 
-                    Below is context from {ticker}'s 10-K report:
+        return f"""You are a financial analyst specializing in SEC filings.
 
-                    {context_text}
+Below is context from {ticker}'s 10-K report across multiple years:
 
-                    Please analyze the following question step by step, and include exact figures and percentages **only if they are explicitly provided in the document.**
+{context_text}
 
-                    Question: {query}
+Question: {query}
 
-                    Example answer format:
-                    1) Identify the relevant figures in the document.
-                    2) Calculate any comparisons or rates of change (only when all required values are clearly stated).
-                    3) Interpret what these findings mean from an investor’s perspective.
+Instructions:
+{instructions}
 
-                    Important instructions:
-                    - Do NOT estimate or assume values that are not explicitly written.
-                    - If any required number is missing, clearly state that it is not available.
-                    - NEVER fabricate or guess numerical values under any circumstance.
-                    - If the document already contains a clear summary or conclusion relevant to the question, report it as is without additional interpretation or speculation.
+Answer:
+"""
 
-                    Answer:
-                    """
-        
-        return prompt
-
-    def answer(
-        self,
-        query: str,
-        ticker: str,
-        top_k: int = config.TOP_K_FINAL
-    ) -> str:
-        """
-        1) retrieve_relevant_chunks 로 청크 검색
-        2) build_prompt 로 프롬프트 작성
-        3) LLM 호출 후 응답 반환
-        """
-        logger.info("Retrieving top %d chunks for ticker=%s, query=%s", top_k, ticker, query)
+    def answer(self, query: str, ticker: str, top_k: int = config.TOP_K_FINAL, answer_template: list[str] | None = None) -> str:
         docs: List[Document] = retrieve_relevant_chunks(query, ticker, top_k=top_k)
-        # contexts = [doc.page_content for doc in docs]
-
-        prompt = self.build_prompt(query, docs, ticker)
-        logger.info("Prompt built, invoking LLM...")
+        prompt = self.build_prompt(query, docs, ticker, answer_template=answer_template)
         response = self.llm.invoke(prompt)
-        logger.info("LLM response received")
         return response.content
-
-# 편의 함수
 
 def answer_question_with_context(
     query: str,
     ticker: str,
-    top_k: int = config.TOP_K_FINAL
-) -> str:
+    top_k: int = config.TOP_K_FINAL,
+    answer_template: list[str] | None = None) -> str:
     agent = LlmAgent()
-    return agent.answer(query, ticker, top_k)
+    return agent.answer(query, ticker, top_k=top_k, answer_template=answer_template)
 
 answer_with_agent = answer_question_with_context

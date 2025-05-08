@@ -1,0 +1,102 @@
+[
+  {
+    "id": 1,
+    "question": "What is the company’s primary business model and revenue drivers?",
+    "related_item": "Item 1",
+    "answer_template": [
+      "1) Summarize the business model based on Item 1.",
+      "2) Identify main revenue drivers (cloud, ads, software, etc.) with figures if available.",
+      "3) Mention key segments and how they contribute to revenue."
+    ]
+  },
+  {
+    "id": 2,
+    "question": "What were the total revenue and net income for the latest fiscal year?",
+    "related_item": "Item 8",
+    "answer_template": [
+      "1) Extract total revenue and net income explicitly stated for the latest fiscal year.",
+      "2) Mention the fiscal year.",
+      "3) Optionally compare to the previous year if both values are present."
+    ]
+  },
+  {
+    "id": 3,
+    "question": "What was the year-over-year revenue growth?",
+    "related_item": "Item 7/8",
+    "answer_template": [
+      "1) Identify total revenue for two consecutive years.",
+      "2) Calculate growth rate using ((new - old) / old) * 100.",
+      "3) Clearly indicate which year each value corresponds to."
+    ]
+  },
+  {
+    "id": 4,
+    "question": "What are the top three risk factors disclosed in the report?",
+    "related_item": "Item 1A",
+    "answer_template": [
+      "1) List the top 3 explicitly stated risks.",
+      "2) Avoid generalities; use phrasing from the document.",
+      "3) If more than three are equally weighted, pick the ones mentioned first."
+    ]
+  },
+  {
+    "id": 5,
+    "question": "Are there material legal proceedings that could impact financials?",
+    "related_item": "Item 3",
+    "answer_template": [
+      "1) Mention specific legal proceedings described.",
+      "2) Include figures for liabilities or contingencies if provided.",
+      "3) Indicate the fiscal year."
+    ]
+  },
+  {
+    "id": 6,
+    "question": "How did each operating segment perform (revenue, margins)?",
+    "related_item": "Item 7",
+    "answer_template": [
+      "1) For each segment, extract revenue and margin if available.",
+      "2) Compare performance across segments and years.",
+      "3) Use numbers only when explicitly stated."
+    ]
+  },
+  {
+    "id": 7,
+    "question": "How have operating cash flow (OCF) and free cash flow (FCF) trended?",
+    "related_item": "Item 7/8",
+    "answer_template": [
+      "1) State OCF and FCF figures for each available year.",
+      "2) Comment on the trend (increasing, decreasing, etc.).",
+      "3) Avoid any estimates—use exact figures only."
+    ]
+  },
+  {
+    "id": 8,
+    "question": "Did the company repurchase shares or issue dividends this year?",
+    "related_item": "Item 5",
+    "answer_template": [
+      "1) Confirm whether repurchases or dividends were made.",
+      "2) State the amount repurchased or dividend per share if available.",
+      "3) Specify the fiscal year mentioned."
+    ]
+  },
+  {
+    "id": 9,
+    "question": "Which macroeconomic risks (e.g., inflation, tariffs) are highlighted?",
+    "related_item": "Item 1A",
+    "answer_template": [
+      "1) List the specific macro risks mentioned (inflation, tariffs, etc.).",
+      "2) Include a brief explanation or quote from the document if possible.",
+      "3) Focus on explicitly stated risks only."
+    ]
+  },
+  {
+    "id": 10,
+    "question": "What strategic priorities did management emphasize for the next year?",
+    "related_item": "Item 7",
+    "answer_template": [
+      "1) Identify priorities stated for the upcoming year.",
+      "2) Use clear wording from the management section.",
+      "3) Avoid guessing or projecting beyond what's written."
+    ]
+  }
+]

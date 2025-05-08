@@ -1,67 +1,135 @@
+# loader.py
 import os
 import re
 import glob
 from bs4 import BeautifulSoup
 from sec_edgar_downloader import Downloader
 
-
 def fetch_sec_10k(ticker: str, limit=1, save_dir="data"):
-    """
-    지정한 티커의 10-K 보고서를 다운로드.
-    실제 저장 경로는 save_dir/sec-edgar-filings/<TICKER>/10-K/... 가 된다.
-    """
     dl = Downloader("SoosungEng", "dronesquare@soosungeng.com", download_folder=save_dir)
     dl.get("10-K", ticker, limit=limit)
+    print(f"[DEBUG] Fetching 10-K for {ticker}, limit={limit}")
 
-
-def extract_clean_10k_text(raw_text: str) -> str:
-    """
-    Item 1 ~ Item 8 사이의 구간을 추출하여 잡음 제거
-    """
-    start_match = re.search(r"Item\s+1[\.\s\-]+Business", raw_text, re.IGNORECASE)
-    start = start_match.start() if start_match else 0
-
-    end_match = re.search(r"Item\s+8[\.\s\-]+Financial Statements", raw_text, re.IGNORECASE)
-    end = end_match.start() if end_match else len(raw_text)
-
-    section = raw_text[start:end]
-    clean = ''.join([c if 32 <= ord(c) <= 126 or c in '\n\r\t' else ' ' for c in section])
-    return clean
-
-
-def get_latest_10k_text(ticker: str, base_dir="data") -> str:
-    """
-    가장 최근의 10-K full-submission.txt 파일을 불러와서 텍스트를 추출
-    """
+def get_latest_10k_texts(ticker: str, limit: int = 1, base_dir="data") -> list[tuple[str, str]]:
     search_path = os.path.join(base_dir, "sec-edgar-filings", ticker, "10-K", "*", "full-submission.txt")
-    matches = glob.glob(search_path)
+    matches = sorted(glob.glob(search_path))[-limit:]
+
     if not matches:
         raise FileNotFoundError(f"No 10-K files found for {ticker} in {search_path}")
 
-    latest_file = sorted(matches)[-1]
-    with open(latest_file, encoding="utf-8", errors="ignore") as f:
-        full_text = f.read()
+    results = []
+    for path in matches:
+        cik_year_match = re.search(r"10-K/([^/]+)/", path)
+        if cik_year_match:
+            cik_part = cik_year_match.group(1)
+            year_match = re.search(r"-(\d{2})-", cik_part)
+            year = "20" + year_match.group(1) if year_match else "Unknown"
+        else:
+            year = "Unknown"
 
-    docs = full_text.split("<DOCUMENT>")
-    candidates = []
-    for doc in docs:
-        doc_type = ""
-        if "<TYPE>" in doc:
-            doc_type = doc.split("<TYPE>")[1].split("\n")[0].strip()
-        if "<TEXT>" in doc:
-            body = doc.split("<TEXT>")[1].strip()
-            candidates.append((doc_type, body))
+        with open(path, encoding="utf-8", errors="ignore") as f:
+            full_text = f.read()
 
-    # 우선순위 1: 10-K 문서
-    for dtype, body in candidates:
-        if dtype == "10-K":
-            soup = BeautifulSoup(body, "html.parser")
-            return soup.get_text(separator="\n")
+        docs = full_text.split("<DOCUMENT>")
+        for doc in docs:
+            if "<TYPE>10-K" in doc and "<TEXT>" in doc:
+                body = doc.split("<TEXT>")[1].strip()
+                clean_text = extract_text_with_plain_table(body)
+                print(f"[DEBUG] Extracted text length for {year}: {len(clean_text)}")
+                results.append((year, clean_text))
+                break
 
-    # 우선순위 2: EX-13 또는 EX-99 (대체 문서)
-    for dtype, body in candidates:
-        if dtype.startswith("EX-13") or dtype.startswith("EX-99"):
-            soup = BeautifulSoup(body, "html.parser")
-            return soup.get_text(separator="\n")
+    return results
 
-    raise ValueError("No readable 10-K or EX-13 document found.")
+# def get_latest_10k_texts(ticker: str, limit: int = 1, base_dir="data") -> list[tuple[str, str]]:
+#     search_path = os.path.join(base_dir, "sec-edgar-filings", ticker, "10-K", "*", "full-submission.txt")
+#     matches = sorted(glob.glob(search_path))[-limit:]
+
+#     if not matches:
+#         raise FileNotFoundError(f"No 10-K files found for {ticker} in {search_path}")
+
+#     results = []
+#     for path in matches:
+#         cik_year_match = re.search(r"10-K/([^/]+)/", path)
+#         if cik_year_match:
+#             cik_part = cik_year_match.group(1)  # "0001193125-23-123456"
+#             year_match = re.search(r"-(\d{2})-", cik_part)  # "-23-"
+#             if year_match:
+#                 year = "20" + year_match.group(1)
+#             else:
+#                 year = "Unknown"
+#         else:
+#             year = "Unknown"
+
+#         with open(path, encoding="utf-8", errors="ignore") as f:
+#             full_text = f.read()
+
+#         docs = full_text.split("<DOCUMENT>")
+#         for doc in docs:
+#             if "<TYPE>10-K" in doc and "<TEXT>" in doc:
+#                 body = doc.split("<TEXT>")[1].strip()
+#                 soup = BeautifulSoup(body, "html.parser")
+#                 clean_text = soup.get_text(separator="\n")
+#                 results.append((year, clean_text))
+#                 break
+
+#     return results
+
+# def extract_text_with_plain_table(html_text: str) -> str:
+#     soup = BeautifulSoup(html_text, "html.parser")
+
+#     # 1. 표 파싱
+#     for table in soup.find_all("table"):
+#         rows = table.find_all("tr")
+#         parsed_lines = []
+
+#         headers = [th.get_text(strip=True) for th in rows[0].find_all("th")]
+#         if not headers:
+#             headers = [td.get_text(strip=True) for td in rows[0].find_all("td")]
+
+#         if headers:
+#             parsed_lines.append(f"Table: {' vs '.join(headers)}")
+#             for row in rows[1:]:
+#                 cells = row.find_all(["td", "th"])
+#                 values = [cell.get_text(strip=True) for cell in cells]
+#                 if len(values) == len(headers):
+#                     line = "- " + " | ".join(f"{h}: {v}" for h, v in zip(headers, values))
+#                     parsed_lines.append(line)
+
+#         # 2. 표를 변환된 텍스트로 대체
+#         table.insert_before(soup.new_tag("p"))
+#         table.previous_sibling.string = "\n".join(parsed_lines)
+#         table.decompose()
+
+#     # 3. 전체 텍스트 추출
+#     return soup.get_text(separator="\n")
+
+def extract_text_with_plain_table(html_text: str) -> str:
+    soup = BeautifulSoup(html_text, "html.parser")
+
+    if not soup.find():  # soup is empty or broken
+        return ""
+
+    for table in soup.find_all("table"):
+        rows = table.find_all("tr")
+        parsed_lines = []
+
+        headers = [th.get_text(strip=True) for th in rows[0].find_all("th")] if rows else []
+        if not headers and rows:
+            headers = [td.get_text(strip=True) for td in rows[0].find_all("td")]
+
+        if headers:
+            parsed_lines.append(f"Table: {' vs '.join(headers)}")
+            for row in rows[1:]:
+                cells = row.find_all(["td", "th"])
+                values = [cell.get_text(strip=True) for cell in cells]
+                if len(values) == len(headers):
+                    line = "- " + " | ".join(f"{h}: {v}" for h, v in zip(headers, values))
+                    parsed_lines.append(line)
+
+        if parsed_lines:
+            table.insert_before(soup.new_tag("p"))
+            table.previous_sibling.string = "\n".join(parsed_lines)
+        table.decompose()
+
+    return soup.get_text(separator="\n")
