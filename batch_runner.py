@@ -18,22 +18,26 @@ class BatchQueryRunner:
         results = []
         for q in queries:
             try:
-                answer = self.pipeline.answer(
+                output = self.pipeline.answer(
                     ticker=self.ticker,
                     query=q["question"],
                     limit=self.limit,
                     answer_template=q.get("answer_template")
                 )
+
                 results.append({
                     "id": q.get("id"),
                     "question": q["question"],
-                    "answer": answer
+                    "prompt": output.get("prompt", ""),
+                    "answer": output.get("answer", ""),
+                    "relevant_tables": output.get("relevant_tables", [])
                 })
+
             except Exception as e:
                 results.append({
                     "id": q.get("id"),
                     "question": q["question"],
-                    "answer": f"[ERROR] {e}"
+                    "error": str(e)
                 })
 
         return results
