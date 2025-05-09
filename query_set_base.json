@@ -21,8 +21,8 @@
     },
     {
       "id": 5,
-      "question": "Are there material legal proceedings that could impact financials?",
-      "related_item": "Item 3"
+      "question": "What lawsuits or regulatory actions were disclosed in Item 3 or Item 8, and what is their estimated financial impact?",
+      "related_item": "Item 3/8"
     },
     {
       "id": 6,
