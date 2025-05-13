@@ -22,7 +22,6 @@ def generate_markdown_report(result_path: str, output_dir: str = "reports", repo
             qid = item.get("id", "?")
             question = item.get("question", "(No question)")
             answer = item.get("answer", "(No answer)")
-            tables = item.get("relevant_tables", [])
 
             f.write(f"## Q{qid}: {question}\n\n")
             f.write(f"**Answer:**\n\n{answer.strip()}\n\n")

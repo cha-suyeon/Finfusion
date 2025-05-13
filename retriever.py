@@ -19,7 +19,10 @@ def retrieve_relevant_chunks(query: str, ticker: str, top_k: int = 20) -> List[D
     # Item 필터
     target_items = infer_items_by_semantic(query)
     if target_items:
-        all_docs = [doc for doc in all_docs if doc.metadata.get("item") in target_items]
+        all_docs = [
+            doc for doc in all_docs
+            if doc.metadata.get("item") in target_items or doc.metadata.get("contains_table", False)
+        ]
 
     # 연도별 정렬
     from collections import defaultdict
@@ -49,46 +52,6 @@ def retrieve_relevant_chunks(query: str, ticker: str, top_k: int = 20) -> List[D
     reranked = rerank_with_llm(query, final_docs, top_k=top_k)
     return reranked
 
-# def retrieve_relevant_chunks(query: str, ticker: str, top_k: int = 20) -> List[Document]:
-#     db = load_faiss_index(ticker)
-#     all_docs = list(db.docstore._dict.values())
-
-#     # 1. 의미 기반 Item 필터링
-#     target_items = infer_items_by_semantic(query)
-#     if target_items:
-#         all_docs = [doc for doc in all_docs if doc.metadata.get("item") in target_items]
-#         logger.info("Filtered docs to items: %s", target_items)
-#     else:
-#         logger.info("No target items matched; using all chunks.")
-
-#     # 2. 연도별로 그룹핑
-#     docs_by_year = defaultdict(list)
-#     for doc in all_docs:
-#         year = doc.metadata.get("year", "unknown")
-#         docs_by_year[year].append(doc)
-
-#     final_docs = []
-#     for year, docs in docs_by_year.items():
-#         logger.info(f"Retrieving from year: {year} with {len(docs)} docs")
-
-#         # BM25
-#         bm25 = BM25Okapi([doc.page_content for doc in docs])
-#         bm25_top_k_contents = bm25.get_top_n(query.split(), docs, n=top_k)
-#         bm25_docs = [doc for doc in docs if doc.page_content in bm25_top_k_contents]
-
-#         # FAISS
-#         vector_results = db.similarity_search(query, k=top_k, documents=docs)
-
-#         # RRF 병합
-#         merged = _reciprocal_rank_fusion(bm25_docs, vector_results, k=config.RRF_K)
-
-#         # 상위 top_k 개수만 선택 (연도별로)
-#         final_docs.extend(merged[:top_k])
-
-#     # 전체 문서 중 top_k개만 LLM에 넣기 위해 relevance rerank 진행
-#     reranked = rerank_with_llm(query, final_docs, top_k=top_k)
-
-#     return reranked
 
 def _reciprocal_rank_fusion(bm25_docs, vector_docs, k=60):
     from collections import defaultdict

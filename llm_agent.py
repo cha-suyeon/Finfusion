@@ -1,4 +1,3 @@
-# llm_agent.py
 import logging
 from typing import List
 from langchain_ollama import ChatOllama
@@ -24,14 +23,23 @@ class LlmAgent:
             sources.append(f"{header}\n{doc.page_content.strip()}")
 
         context_text = "\n\n".join(sources)
+        # instructions = "\n".join([
+        #     "- Compare across years when relevant.",
+        #     "- Mention which year a number is from (e.g., \"in 2023, revenue was...\").",
+        #     "- Do NOT fabricate numbers or guess.",
+        #     "- If a value is missing, state it clearly.",
+        #     "- If figures from multiple fiscal years are available, compare them.",
+        #     "- Use only explicitly stated numbers. Do not estimate."
+        # ])
         instructions = "\n".join([
-            "- Compare across years when relevant.",
-            "- Mention which year a number is from (e.g., \"in 2023, revenue was...\").",
-            "- Do NOT fabricate numbers or guess.",
-            "- If a value is missing, state it clearly.",
-            "- If figures from multiple fiscal years are available, compare them.",
-            "- Use only explicitly stated numbers. Do not estimate."
-        ])
+                                "You must strictly follow the rules below when generating your answer:",
+                                "- Use only explicitly stated numbers from the filings. Do not infer or guess.",
+                                "- If a number or statement is not explicitly available, say so clearly.",
+                                "- Avoid speculative language. Focus on facts.",
+                                "- Mention the year each number comes from (e.g., \"In 2023, revenue was...\").",
+                                "- Do not average or estimate across years unless directly stated.",
+                                "- Compare across years when relevant.",
+                            ])
 
         if answer_template:
             instructions += "\n\nPlease follow these steps:\n"
@@ -50,6 +58,7 @@ class LlmAgent:
 
                 Answer:
                 """
+
     def answer(self, query: str, ticker: str, top_k: int = config.TOP_K_FINAL, answer_template: list[str] | None = None) -> dict:
         docs: List[Document] = retrieve_relevant_chunks(query, ticker, top_k=top_k)
         prompt = self.build_prompt(query, docs, ticker, answer_template=answer_template)
@@ -62,41 +71,84 @@ class LlmAgent:
 
         answer_text = response.content.strip()
         if table_chunks:
-            answer_text += "\n\n---\nRelevant Table(s):\n" + "\n\n".join(table_chunks[:3])  # 최대 3개만 보여줌
+            answer_text += "\n\n---\nRelevant Table(s):\n" + "\n\n".join(table_chunks[:3])  # 최대 3개
 
         return {
             "prompt": prompt.strip(),
             "answer": answer_text,
-            "relevant_tables": table_chunks[:3]  # 이 부분이 핵심
+            "relevant_tables": table_chunks[:3]
         }
 
+# 기존 단일 질문용
 def answer_question_with_context(query: str, ticker: str, top_k: int = config.TOP_K_FINAL, answer_template: list[str] | None = None) -> dict:
     agent = LlmAgent()
     return agent.answer(query, ticker, top_k=top_k, answer_template=answer_template)
 
 answer_with_agent = answer_question_with_context
 
-def chat(self, chat_history: list[dict]) -> str:
-    return self.llm.invoke(chat_history).content
-
+# 기존 follow-up 방식 (no retrieval)
 def answer_with_followup(followup_question: str, ticker: str, chat_history: list[dict]) -> str:
-    # Combine previous Q&A into a formatted string
-    history_text = ""
-    for turn in chat_history:
-        history_text += f"Question: {turn['question']}\nAnswer: {turn['answer']}\n\n"
+    llm = ChatOllama(model=config.LLM_MODEL_NAME, temperature=config.LLM_TEMPERATURE, max_tokens=config.LLM_MAX_TOKENS)
 
-    # Build prompt
-        prompt = f"""You are a financial analyst. Given the previous conversation and a new follow-up question, answer in a way that builds on the prior information.
+    try:
+        previous_q = chat_history[-1]["question"]
+        previous_a = chat_history[-1]["answer"]
+    except (IndexError, KeyError):
+        return "Cannot generate follow-up answer: missing prior question and answer."
 
-                Previous Q&A:
-                {history_text}
+    prompt = f"""You are a financial assistant trained on SEC 10-K filings.
 
-                Follow-up Question: {followup_question}
+            Prior question: {previous_q}
 
-                Answer:"""
+            Prior answer: {previous_a}
+
+            Follow-up question: {followup_question}
+
+            Please respond based on the prior context and the new question, and do not hallucinate numbers.
+
+            Answer:
+            """
+
+    response = llm.invoke(prompt)
+    return response.content.strip()
+
+# 새 기능: follow-up 질문을 standalone으로 보정
+def refine_followup_with_context(followup_question: str, prior_question: str, prior_answer: str) -> str:
+    prompt = f"""You are a helpful assistant refining follow-up questions for document retrieval.
+
+                Given the previous Q&A:
+                Question: {prior_question}
+                Answer: {prior_answer}
+
+                And the follow-up question: {followup_question}
+
+                Rewrite the follow-up so that it is standalone and complete for retrieval.
+
+                Rewritten question:"""
 
     llm = ChatOllama(model=config.LLM_MODEL_NAME)
     response = llm.invoke(prompt)
     return response.content.strip()
 
-answer_with_followup = answer_with_followup
+# 새 기능: 보정된 query로 retrieval + 응답 생성
+def answer_followup_with_retrieval(followup_question: str, ticker: str, chat_history: list[dict]) -> str:
+    if not chat_history:
+        return "Cannot proceed: No prior chat history."
+
+    prior_q = chat_history[-1]["question"]
+    prior_a = chat_history[-1]["answer"]
+
+    # 1. Query 재구성
+    refined_query = refine_followup_with_context(followup_question, prior_q, prior_a)
+    print(f"[DEBUG] Refined Query: {refined_query}")
+
+    # 2. Chunk retrieval
+    docs = retrieve_relevant_chunks(refined_query, ticker, top_k=config.TOP_K_FINAL)
+    print(f"[DEBUG] Retrieved {len(docs)} chunks")
+
+    # 3. Prompt 구성 및 응답 생성
+    agent = LlmAgent()
+    prompt = agent.build_prompt(refined_query, docs, ticker)
+    response = agent.llm.invoke(prompt)
+
+    return response.content.strip()

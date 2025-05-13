@@ -1,9 +1,4 @@
-"""
-config.py
-
-Finfusion 프로젝트 전역 설정.
-환경변수를 통해 값 조정 가능하며, 기본값은 아래와 같습니다.
-"""
+# config.py
 
 import os
 

@@ -30,7 +30,6 @@ class BatchQueryRunner:
                     "question": q["question"],
                     "prompt": output.get("prompt", ""),
                     "answer": output.get("answer", ""),
-                    "relevant_tables": output.get("relevant_tables", [])
                 })
 
             except Exception as e:
