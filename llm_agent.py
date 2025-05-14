@@ -1,3 +1,4 @@
+# llm_agent.py
 import logging
 from typing import List
 from langchain_ollama import ChatOllama
@@ -23,14 +24,6 @@ class LlmAgent:
             sources.append(f"{header}\n{doc.page_content.strip()}")
 
         context_text = "\n\n".join(sources)
-        # instructions = "\n".join([
-        #     "- Compare across years when relevant.",
-        #     "- Mention which year a number is from (e.g., \"in 2023, revenue was...\").",
-        #     "- Do NOT fabricate numbers or guess.",
-        #     "- If a value is missing, state it clearly.",
-        #     "- If figures from multiple fiscal years are available, compare them.",
-        #     "- Use only explicitly stated numbers. Do not estimate."
-        # ])
         instructions = "\n".join([
                                 "You must strictly follow the rules below when generating your answer:",
                                 "- Use only explicitly stated numbers from the filings. Do not infer or guess.",
