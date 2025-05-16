@@ -11,55 +11,44 @@ def fetch_sec_10k(ticker: str, limit=1, save_dir="data"):
     dl.get("10-K", ticker, limit=limit)
     print(f"[DEBUG] Fetching 10-K for {ticker}, limit={limit}")
 
-def extract_text_and_tables_from_html(html_text: str) -> tuple[str, list[str]]:
-    soup = BeautifulSoup(html_text, "html.parser")
-
-    if not soup.find():
-        return "", []
-
-    plain_text = soup.get_text(separator="\n").strip()
-    return plain_text, []
-
 # def extract_text_and_tables_from_html(html_text: str) -> tuple[str, list[str]]:
 #     soup = BeautifulSoup(html_text, "html.parser")
 
 #     if not soup.find():
 #         return "", []
 
-#     tables = soup.find_all("table")
-#     table_texts = []
-
-#     for table in tables:
-#         rows = table.find_all("tr")
-#         if not rows or len(rows) < 2:
-#             continue
-
-#         # 가장 긴 행을 헤더 후보로 사용
-#         max_row = max(rows, key=lambda r: len(r.find_all(["th", "td"])))
-#         headers = [cell.get_text(strip=True) for cell in max_row.find_all(["th", "td"])]
-
-#         if not headers or all(h == "" for h in headers):
-#             continue  # 아무 값도 없으면 건너뜀
-
-#         table_lines = [f"Table: {' | '.join(headers)}"]
-
-#         for row in rows:
-#             cells = row.find_all(["td", "th"])
-#             values = [cell.get_text(strip=True) for cell in cells]
-#             if len(values) != len(headers):
-#                 continue
-#             row_line = "- " + " | ".join(f"{h}: {v}" for h, v in zip(headers, values))
-#             table_lines.append(row_line)
-
-#         # 실질 내용 있는지 다시 확인
-#         if len(table_lines) > 1:
-#             table_texts.append("\n".join(table_lines))
-
-#         table.decompose()  # 원문 제거
-
 #     plain_text = soup.get_text(separator="\n").strip()
-#     return plain_text, table_texts
+#     return plain_text, []
 
+def extract_text_and_tables_from_html(html_text: str) -> tuple[str, list[str]]:
+    soup = BeautifulSoup(html_text, "html.parser")
+
+    # Step 1: extract all <tr> rows as table-like lines
+    rows = soup.find_all("tr")
+    table_lines = []
+    for row in rows:
+        cells = row.find_all("td")
+        if not cells:
+            continue
+        line = " | ".join(cell.get_text(strip=True) for cell in cells)
+        if line.strip():
+            table_lines.append(line)
+
+    # Step 2: remove those <tr> so they don't affect plain text
+    for tr in rows:
+        tr.decompose()
+
+    # Step 3: extract remaining plain text
+    plain_text = soup.get_text(separator="\n").strip()
+
+    # Step 4: join text and table lines
+    if table_lines:
+        table_text = "\n".join(table_lines)
+        combined_text = f"{plain_text}\n\n[Structured Table Data]\n{table_text}"
+    else:
+        combined_text = plain_text
+
+    return combined_text, []  # tables merged into text, so return [] for table list
 
 def get_latest_10k_texts(ticker: str, limit: int = 1, base_dir="data") -> list[tuple[str, str, list[str]]]:
     search_path = os.path.join(base_dir, "sec-edgar-filings", ticker, "10-K", "*", "full-submission.txt")

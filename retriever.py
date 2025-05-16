@@ -1,4 +1,5 @@
 # retriever.py
+import re
 import logging
 from typing import List
 from rank_bm25 import BM25Okapi
@@ -77,7 +78,6 @@ def _reciprocal_rank_fusion(bm25_docs, vector_docs, k=60):
     return merged
 
 def rerank_with_llm(query: str, docs: List[Document], top_k: int = 5) -> List[Document]:
-    import re
     llm = ChatOllama(model=config.LLM_MODEL_NAME)
 
     logger.info("Running LLM-based reranking on %d docs", len(docs))
@@ -102,11 +102,28 @@ def rerank_with_llm(query: str, docs: List[Document], top_k: int = 5) -> List[Do
                 ONLY return a number between 1 and 10. Do not explain.
                 Answer:
                 """
+    #     try:
+    #         response = llm.invoke(prompt).content.strip()
+    #         match = re.search(r"\b(\d+(\.\d+)?)\b", response)
+    #         if match:
+    #             score = float(match.group(1))
+    #             scored.append((score, doc))
+    #         else:
+    #             raise ValueError(f"No valid score found in response: {response}")
+    #     except Exception as e:
+    #         logger.warning("Failed to score a chunk: %s", e)
+
+    # reranked = [doc for _, doc in sorted(scored, key=lambda x: -x[0])]
+    # return reranked[:top_k]
+        
         try:
             response = llm.invoke(prompt).content.strip()
             match = re.search(r"\b(\d+(\.\d+)?)\b", response)
             if match:
                 score = float(match.group(1))
+                # contains_table boost
+                if doc.metadata.get("contains_table"):
+                    score += 0.5  # 조정 가능
                 scored.append((score, doc))
             else:
                 raise ValueError(f"No valid score found in response: {response}")

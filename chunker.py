@@ -34,9 +34,25 @@ def chunk_text_by_item(docs: list[tuple[str, str, list[str]]], chunk_size=1024, 
             })
 
         # 텍스트 청크
+        # for section in item_sections:
+        #     chunks = splitter.split_text(section["text"])
+        #     for i, chunk in enumerate(chunks):
+        #         doc = Document(
+        #             page_content=chunk,
+        #             metadata={
+        #                 "year": year,
+        #                 "part": section["part"],
+        #                 "item": section["item"],
+        #                 "item_title": section["title"],
+        #                 "chunk_id": i,
+        #                 "contains_table": False
+        #             }
+        #         )
+        #         all_documents.append(doc)
         for section in item_sections:
             chunks = splitter.split_text(section["text"])
             for i, chunk in enumerate(chunks):
+                contains_table = "[Structured Table Data]" in chunk  # 여기서 판단
                 doc = Document(
                     page_content=chunk,
                     metadata={
@@ -45,7 +61,7 @@ def chunk_text_by_item(docs: list[tuple[str, str, list[str]]], chunk_size=1024, 
                         "item": section["item"],
                         "item_title": section["title"],
                         "chunk_id": i,
-                        "contains_table": False
+                        "contains_table": contains_table  # 여기 반영
                     }
                 )
                 all_documents.append(doc)
