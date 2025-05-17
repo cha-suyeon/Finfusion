@@ -29,7 +29,9 @@ def retrieve_relevant_chunks(query: str, ticker: str, top_k: int = 20) -> List[D
     from collections import defaultdict
     docs_by_year = defaultdict(list)
     for doc in all_docs:
-        year = doc.metadata.get("year", "unknown")
+        # year = doc.metadata.get("year", "unknown")
+        conformed = doc.metadata.get("conformed_period_of_report", "")
+        year = conformed[:4] if conformed and len(conformed) >= 4 else doc.metadata.get("year", "unknown")
         docs_by_year[year].append(doc)
 
     final_docs = []
@@ -102,19 +104,6 @@ def rerank_with_llm(query: str, docs: List[Document], top_k: int = 5) -> List[Do
                 ONLY return a number between 1 and 10. Do not explain.
                 Answer:
                 """
-    #     try:
-    #         response = llm.invoke(prompt).content.strip()
-    #         match = re.search(r"\b(\d+(\.\d+)?)\b", response)
-    #         if match:
-    #             score = float(match.group(1))
-    #             scored.append((score, doc))
-    #         else:
-    #             raise ValueError(f"No valid score found in response: {response}")
-    #     except Exception as e:
-    #         logger.warning("Failed to score a chunk: %s", e)
-
-    # reranked = [doc for _, doc in sorted(scored, key=lambda x: -x[0])]
-    # return reranked[:top_k]
         
         try:
             response = llm.invoke(prompt).content.strip()

@@ -12,55 +12,6 @@ logger = logging.getLogger(__name__)
 class LlmAgent:
     def __init__(self, model_name=config.LLM_MODEL_NAME, temperature=config.LLM_TEMPERATURE, max_tokens=config.LLM_MAX_TOKENS):
         self.llm = ChatOllama(model=model_name, temperature=temperature, max_tokens=max_tokens)
-
-    # def build_prompt(self, query: str, docs: list[Document], ticker: str, answer_template: list[str] | None = None) -> str:
-    #     if answer_template is None:
-    #         answer_template = generate_answer_template_from_llm(query)
-
-    #     sources = []
-    #     for doc in docs:
-    #         meta = doc.metadata
-    #         header = f"[Year: {meta.get('year')}] [Item: {meta.get('item')} - {meta.get('item_title')}]"
-
-    #         # 테이블 추가 코드
-    #         content = doc.page_content.strip()
-    #         if "[Structured Table Data]" in content:
-    #             content = "The following chunk contains tabular financial data. Use it when answering numeric questions.\n\n" + content
-
-    #         sources.append(f"{header}\n{doc.page_content.strip()}")
-
-    #     context_text = "\n\n".join(sources)
-    #     instructions = "\n".join([
-    #                             "You must strictly follow the rules below when generating your answer:",
-    #                             "- Use only explicitly stated numbers from the filings. Do not infer or guess.",
-    #                             "- If a number or statement is not explicitly available, say so clearly.",
-    #                             "- Avoid speculative language. Focus on facts.",
-    #                             "- Mention the year each number comes from (e.g., \"In 2023, revenue was...\").",
-    #                             "- Do not average or estimate across years unless directly stated.",
-    #                             "- Compare across years when relevant.",
-    #                             "- Prioritize chunks that include structured tables ([Structured Table Data]) when answering numeric questions."
-    #                         ])
-
-    #     if answer_template:
-    #         instructions += "\n\nPlease follow these steps:\n"
-    #         instructions += "\n".join(f"{i+1}. {step}" for i, step in enumerate(answer_template))
-
-    #     return f"""You are a financial analyst specializing in SEC filings.
-
-    #             Some chunks may contain structured tables marked by [Structured Table Data].
-    #             Prioritize those chunks for numeric accuracy when relevant.
-
-    #             Below is context from {ticker}'s 10-K report across multiple years:
-
-    #             {context_text}
-
-    #             Question: {query}
-
-    #             Instructions:
-    #             {instructions}
-
-    #             Answer:
-    #             """
         
     def build_prompt(self, query: str, docs: list[Document], ticker: str, answer_template: list[str] | None = None) -> str:
         if answer_template is None:

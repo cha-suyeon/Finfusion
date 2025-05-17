@@ -58,17 +58,15 @@
 #         return answer_with_agent(query, ticker, answer_template=answer_template)
 
 import os
+import re
 from loader import fetch_sec_10k, get_latest_10k_texts
 from chunker import chunk_text_by_item
 from embedder import create_faiss_index, load_faiss_index
 from retriever import retrieve_relevant_chunks
 from llm_agent import answer_with_agent
 
-# 유틸 함수 추가 (정규식 기반)
-import re
 
 def parse_conformed_period(text: str) -> str:
-    """텍스트에서 CONFORMED PERIOD OF REPORT 추출 (예: 20231231 → 2023-12-31)"""
     match = re.search(r"CONFORMED PERIOD OF REPORT:\s*(\d{4})(\d{2})(\d{2})", text, re.IGNORECASE)
     if match:
         y, m, d = match.groups()
@@ -76,11 +74,17 @@ def parse_conformed_period(text: str) -> str:
     return "unknown"
 
 def parse_filing_year_from_filename(filename: str) -> int:
-    """EDGAR 스타일 파일명에서 제출 연도 추출"""
     match = re.search(r"-([0-9]{2})-", filename)
     if match:
         return 2000 + int(match.group(1))
     return -1
+
+def extract_company_name(text: str, fallback: str) -> str:
+    match = re.search(r"COMPANY CONFORMED NAME:\s*(.+)", text, re.IGNORECASE)
+    if match:
+        return match.group(1).strip()
+    return fallback.upper()
+
 
 class FusionPipeline:
     def __init__(self, base_dir="data", index_root="data/index"):
@@ -103,7 +107,7 @@ class FusionPipeline:
             try:
                 with open(debug_path, "w", encoding="utf-8") as f:
                     for year, text, tables in docs:
-                        f.write(f"==== {ticker} ({year}) ====\n\n")
+                        f.write(f"==== {ticker} ({year}) ====" + "\n\n")
                         mid = len(text) // 2
                         start = max(0, mid - 1500)
                         end = min(len(text), mid + 1500)
@@ -115,12 +119,15 @@ class FusionPipeline:
 
             all_chunks = []
             for year, text, tables in docs:
-                conformed_period = parse_conformed_period(text)  # ex: 2023-05-31
-                filing_year = int(year) + 1  # 일반적으로 다음 해 제출됨
+                header_snippet = text[:3000]
+                company_name = extract_company_name(header_snippet, fallback=ticker)
+                conformed_period = parse_conformed_period(text)
+                filing_year = int(year) + 1
+
                 chunks = chunk_text_by_item(
                     docs=[(year, text, tables)],
                     ticker=ticker,
-                    company_name="Nike, Inc.",  # TODO: 실제로 추출하거나 ticker → 이름 맵핑
+                    company_name=company_name,
                     conformed_period=conformed_period,
                     filing_year=filing_year
                 )
