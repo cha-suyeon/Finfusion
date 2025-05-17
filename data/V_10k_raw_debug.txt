@@ -1,0 +1,52 @@
+==== V (2023) ====
+
+ompany offers products, solutions and services that facilitate secure, reliable and efficient money movement for participants in the ecosystem. Visa is not a financial institution and does not issue cards, extend credit or set rates and fees for account holders of Visa products. In most cases, account holder and merchant relationships belong to, and are managed by, Visa’s financial institution clients.
+ 
+Consolidation and basis of presentation
+. The consolidated financial statements include the accounts of Visa and its consolidated entities and are presented in accordance with accounting principles generally accepted in the United States of America (U.S. GAAP). The Company consolidates its majority-owned and controlled entities, including variable interest entities (VIEs) for which the Company is the primary beneficiary. The Company’s investments in VIEs have not been material to its consolidated financial statements as of and for the periods presented. Intercompany balances and transactions have been eliminated in consolidation.
+During fiscal 2022, economic sanctions were imposed on Russia, impacting Visa and its clients. In March 2022, the Company suspended its operations in Russia and deconsolidated its Russian subsidiary.
+The Company’s activities are interrelated, and each activity is dependent upon and supportive of the other. All significant operating decisions are based on analysis of Visa as a single global business. The Company has 
+one
+ reportable segment, Payment Services.
+Use of estimates
+. The preparation of consolidated financial statements in conformity with U.S. GAAP requires management to make estimates and assumptions about future events. These estimates and assumptions affect the reported amounts of assets and liabilities and disclosure of contingent assets and liabilities at the date of the consolidated financial statements and reported amounts of revenues and expenses during the reporting period. These estimates may change as new events occur and additional information is obtained, and will be recognized in the period in which such changes occur. Future actual results could differ materially from these estimates. The use of estimates in specific accounting policies is described further below as appropriate.
+Cash, cash equivalents, restricted cash, and restricted cash equivalents
+. Cash and cash equivalents include cash and certain highly liquid investments with original maturities of 90 days or less from the date of purchase. Cash equivalents are primarily recorded at cost, which approximates fair value due to their generally short maturities. The Company defines restricted cash and restricted cash equivalents as cash and cash equivalents that cannot be withdrawn or used for general operating activities. See 
+Note 4—Cash, Cash Equivalents, Restricted Cash and Restricted Cash Equivalents.
+Restricted cash equivalents—U.S. litigation escrow
+. The Company maintains an escrow account from which monetary liabilities from settlement
+
+---
+
+==== V (2024) ====
+
+edging Instruments
+ to our consolidated financial statements included in 
+Item 8
+ of this report.
+Equity Investment Risk
+Our equity investments are held in both marketable and non-marketable equity securities. The marketable equity securities are investments in publicly traded companies and the non-marketable equity securities include investments in privately held companies. As of September 30, 2024 and 2023, the carrying value of our marketable equity securities was $63 million and $163 million, respectively, and the carrying value of our non-marketable equity securities was $1.4 billion for each fiscal year. These securities are subject to a wide variety of market-related risks that could substantially reduce or increase the fair value of our holdings. A decline in financial condition or operating results of these investments could result in a loss of all or a substantial part of our carrying value in these companies. We regularly review our non-marketable equity securities for possible impairment, which generally involves an analysis of the facts and changes in circumstances influencing the investment, expectations of the entity’s cash flows and capital needs, and the viability of its business model.
+52
+Table 
+of Contents
+ITEM 8.    Financial Statements and Supplementary Data
+VISA
+INDEX TO CONSOLIDATED FINANCIAL STATEMENTS
+ 
+53
+Table of Contents
+Report of Independent Registered Public Accounting Firm
+To the Stockholders and the Board of Directors
+Visa Inc.:
+Opinions on the Consolidated Financial Statements and Internal Control Over Financial Reporting
+We have audited the accompanying consolidated balance sheets of Visa Inc. and subsidiaries (the Company) as of September 30, 2024 and 2023, the related consolidated statements of operations, comprehensive income, changes in equity, and cash flows for each of the years in the three-year period ended September 30, 2024, and the related notes (collectively, the consolidated financial statements). We also have audited the Company’s internal control over financial reporting as of September 30, 2024, based on criteria established in 
+Internal Control – Integrated Framework (2013)
+ issued by the Committee of Sponsoring Organizations of the Treadway Commission. 
+In our opinion, the consolidated financial statements referred to above present fairly, in all material respects, the financial position of the Company as of September 30, 2024 and 2023, and the results of its operations and its cash flows for each of the years in the three-year period ended September 30, 2024, in conformity with U.S. generally accepted accounting principles. Also in our opinion, the Company maintained, in all material respects, effective internal control over financial reporting as of September 30, 2024 based on criteria established in 
+Internal Control – Integrated Framework (2013)
+ issued by the Committee of Sponsoring Organizations of the Treadway Commission.
+Basis for Opinions
+The Company’s management is responsible for thes
+
+---
+

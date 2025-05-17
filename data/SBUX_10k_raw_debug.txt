@@ -1,0 +1,51 @@
+==== SBUX (2023) ====
+
+n the fair value of these derivative financial instruments due to a change in the value of the U.S. dollar as compared to foreign exchange rates. The information provided below relates only to the hedging instruments and does not represent the corresponding changes in the underlying hedged items (
+in millions
+): 
+Equity Security Price Risk
+We have minimal exposure to price fluctuations on equity mutual funds and equity exchange-traded funds within our marketable equity securities portfolio. Marketable equity securities are recorded at fair value and approximates a portion of our liability under our Management Deferred Compensation Plan (“MDCP”). Gains and losses from the portfolio and the change in our MDCP liability are recorded in our consolidated statements of earnings.
+We performed a sensitivity analysis based on a 10% change in the underlying equity prices of our investments as of October 1, 2023 and determined that such a change would not have a significant impact on the fair value of these instruments.
+38
+Table of Contents
+Interest Rate Risk
+Long-term Debt
+We utilize short-term and long-term financing and may use interest rate hedges to manage our overall interest expense related to our existing fixed-rate debt, as well as to hedge the variability in cash flows due to changes in benchmark interest rates related to anticipated debt issuances. See 
+Note 3
+, Derivative Financial Instruments and 
+Note 9
+, Debt, to the consolidated financial statements included in Item 8 of Part II of this 10-K for further discussion of our interest rate hedge agreements and details of the components of our long-term debt, respectively, as of October 1, 2023.
+The following table summarizes the impact of a change in interest rates as of October 1, 2023 on the fair value of Starbucks debt 
+(in millions)
+:
+ 
+(1)
+Amount disclosed is net of $16 million change in the fair value of our designated interest rate swaps. Refer to 
+Note 3
+, Derivative Financial Instruments, for additional information on our interest rate swap designated as a fair value hedge.
+(2)
+Includes $750 million in Senior Notes that matured on October 1, 2023 but remained in current portion of long-term debt on the consolidated balance sheet as the debt repayment was not made until the first day of fiscal 2024.
+Available-for-Sale Debt Securities
+Our available-for-sale securities comprise a diversified portfolio consisting mainly of investment-grade debt securities. The primary objective of these investments is to preserve capital and liquidity. Available-for-sale securities are recorded on the consolidated balance sheets at fair value with unrealized gains and losses reported as a component of accumulated other comprehensive income. We do not hedge the interest rate exposure on our investments. We performed a sensitivity analysis based on a 100 basis point change in the underlying interest rate of our available-for-sale securities as of October 1, 2023 and determined that such a change would not have
+
+---
+
+==== SBUX (2024) ====
+
+ministrative functions that support the operating segments but are not specifically attributable to or managed by any segment and are not included in the reported financial results of the operating segments.
+Corporate and Other operating loss increased to $1.9 billion for fiscal 2024, or 5%, compared to $1.8 billion in fiscal 2023. This increase was primarily driven by incremental investments in technology ($93 million), investments in partner wages and benefits ($57 million), and certain proxy solicitation and advisory services costs incurred in the second quarter of fiscal 2024 ($28 million). These increases were partially offset by lower performance-based compensation ($61 million) and the lapping of donations to The Starbucks Foundation made in fiscal 2023 ($30 million).
+FINANCIAL CONDITION, LIQUIDITY, AND CAPITAL RESOURCES
+Cash and Investment Overview
+Our cash and investments were $3.8 billion and $4.2 billion as of September 29, 2024, and October 1, 2023, respectively. We actively manage our cash and investments in order to internally fund operating needs, make scheduled interest and principal payments on our borrowings, fund acquisitions, and return cash to shareholders through common stock cash dividend payments and share repurchases. Our investment portfolio primarily includes highly liquid available-for-sale securities, including corporate debt securities, government treasury securities (domestic and foreign), and commercial paper as well as principal-protected structured deposits. As of September 29, 2024, approximately
+ 
+$2.1 billion
+ 
+of cash and short-term investments were held in foreign subsidiaries. 
+Borrowing Capacity
+Credit Facilities and Commercial Paper
+Revolving Credit Facility
+Our $3.0 billion unsecured five-year revolving credit facility (the “2021 credit facility”), of which $150.0 million may be used for issuances of letters of credit, is currently set to mature on September 16, 2026. The 2021 credit facility is available for working capital, capital expenditures, and other corporate purposes, including acquisitions and share repurchases. We have the option, subject to negotiation and agreement with the related banks, to increase the maximum commitment amount by an additional $1.0 billion. 
+Borrowings under the 2021 credit facility, which was most recently amended in April 2023, will bear interest at a variable rate based on Term SOFR, and, for U.S. dollar-denominated loans under certain circumstances, a Base Rate (as defined in the 2021 credit facility), in each case plus an applicable margin. The applicable margin is based on the Company’s long-term credit ratings assigned by the Moody’s and Standard & Poor’s rating agencies. The “Base Rate” is the highest of (i) the Federal Funds Rate (as defined in the 2021 credit facility) plus 0.500%, (ii) Bank of America’s prime rate, and (iii) Term SOFR plus 1.000%. Term SOFR means the forward-looking SOFR term rate administrated by the Chicago Mercantile Exchange plus a SOFR Adj
+
+---
+

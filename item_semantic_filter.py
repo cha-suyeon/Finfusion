@@ -46,11 +46,6 @@ def cosine_similarity(a: np.ndarray, b: np.ndarray) -> float:
 def infer_items_by_semantic(query: str, top_k: int = 3) -> List[str]:
     query_vec = np.array(embedding_model.embed_query(query))
 
-    # scores = {
-    #     item: cosine_similarity([query_vec], [vec])[0][0]  # [[score]] 형태라 [0][0] 추출
-    #     for item, vec in item_vectors.items()
-    # }
-
     scores = {
     item: cosine_similarity(query_vec, vec)
     for item, vec in item_vectors.items()

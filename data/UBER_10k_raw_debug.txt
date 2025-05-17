@@ -1,0 +1,42 @@
+==== UBER (2024) ====
+
+ an UberX ride with three passengers represents one Trip. We believe that Trips are a useful metric to measure the scale and usage of our platform.
+59
+Gross Bookings. 
+We define Gross Bookings as the total dollar value, including any applicable taxes, tolls, and fees, of: Mobility rides; Delivery orders (in each case without any adjustment for consumer discounts and refunds); Driver and Merchant earnings; Driver incentives and Freight revenue. Gross Bookings do not include tips earned by Drivers. Gross Bookings are an indication of the scale of our current platform, which ultimately impacts revenue. 
+Adjusted EBITDA.
+ See the section titled “Reconciliations of Non-GAAP Financial Measures” for our definition and a reconciliation of net income (loss) attributable to Uber Technologies, Inc. to Adjusted EBITDA.
+2023 Compared to 2022
+Adjusted EBITDA improved $2.3 billion, to $4.1 billion, primarily attributable to a $1.7 billion increase in Mobility Adjusted EBITDA, a $955 million improvement in Delivery Adjusted EBITDA, partially offset by a $216 million increase in Corporate G&A and Platform R&D costs as well as a $64 million decrease in Freight Adjusted EBITDA.
+Reconciliations of Non-GAAP Financial Measures
+We collect and analyze operating and financial data to evaluate the health of our business and assess our performance. In addition to revenue, net income (loss), income (loss) from operations, and other results under GAAP, we use Adjusted EBITDA, revenue growth rates in constant currency and free cash flow, which are described below, to evaluate our business. We use these non-GAAP financial measures for financial and operational decision-making and as a means to evaluate period-to-period comparisons. We believe that these non-GAAP financial measures provide meaningful supplemental information regarding our performance by excluding certain items that may not be indicative of our recurring core business operating results.
+We believe that both management and investors benefit from referring to these non-GAAP financial measures in assessing our performance and when planning, forecasting, and analyzing future periods. These non-GAAP financial measures also facilitate management’s internal comparisons to our historical performance. We believe these non-GAAP financial measures are useful to investors both because (1) they allow for greater transparency with respect to key metrics used by management in its financial and operational decision-making and (2) they are used by our institutional investors and the analyst community to help them analyze the health of our business. Accordingly, we believe that these non-GAAP financial measures provide useful information to investors and others in understanding and evaluating our operating results in the same manner as our management team and board of directors. Our calculation of these non-GAAP financial measures may differ from similarly-titled non-GAAP measures, if any, reported by our peer companies. These no
+
+---
+
+==== UBER (2025) ====
+
+ng and amount of any valuation allowance release is subject to change due to many factors, including future market conditions and the ability to successfully execute our business plans and/or tax planning strategies. Release of the valuation allowance would result in the recognition of net deferred tax assets on our consolidated balance sheet and would result in an income tax benefit in the period the release is recorded.
+52
+The Inflation Reduction Act Corporate Alternative Minimum Tax (“CAMT”), which is a minimum tax calculated by reference to financial statement income, does not apply to the Company for the year ended December 31, 2024. We could be subject to the CAMT in future years, which would require us to make minimum cash tax payments.
+In addition, the Organisation for Economic Co-operation and Development has led international efforts among approximately 140 countries and taxing jurisdictions to propose and implement changes to numerous long-standing tax principles, including a framework that imposes a minimum tax rate of 15% in each taxing jurisdiction. Under this guidance, we will be required to determine a combined effective tax rate for all entities located in a jurisdiction. If the jurisdictional effective tax rate determined under these rules is less than 15%, a top-up tax will be due to bring the jurisdictional effective tax rate up to 15%. We are continuing to monitor the pending implementation of these rules by individual countries and the potential impact on our business. The provision effective in 2024 had an insignificant impact on our tax obligations for 2024. 
+Income (Loss) from Equity Method Investments
+Income (loss) from equity method investments primarily includes the results of our share of income or loss from our equity method investments. For additional information, see “Note 4 - Equity Method Investments” to our consolidated financial statements included in Part II, Item 8, “Financial Statements and Supplementary Data,” of this Annual Report on Form 10-K.
+Results of Operations
+The following table summarizes our consolidated statements of operations for each of the periods presented (in millions):
+53
+The following table sets forth the components of our consolidated statements of operations for each of the periods presented as a percentage of revenue 
+(1)
+:
+(1)
+ Totals of percentage of revenues may not foot due to rounding.
+Comparison of the Years Ended December 31, 2023 and 2024
+Revenue
+2024
+ 
+Compared to 2023
+Revenue increased $6.7 billion, or 18% year-over-year, primarily attributable to an increase in Gross Bookings of 18%. The increase in Gross Bookings was primarily driven by an increase in Mobility and Delivery Trip volumes. The increase in revenue was partially offset by business model changes in some countries that classified certain sales and marketing costs as contra revenue, which negatively impacted revenue by $863 million and $713 million across Mobility and Delivery, respectively.
+Cost of Revenue, Exclus
+
+---
+

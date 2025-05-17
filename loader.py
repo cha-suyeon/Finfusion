@@ -11,15 +11,6 @@ def fetch_sec_10k(ticker: str, limit=1, save_dir="data"):
     dl.get("10-K", ticker, limit=limit)
     print(f"[DEBUG] Fetching 10-K for {ticker}, limit={limit}")
 
-# def extract_text_and_tables_from_html(html_text: str) -> tuple[str, list[str]]:
-#     soup = BeautifulSoup(html_text, "html.parser")
-
-#     if not soup.find():
-#         return "", []
-
-#     plain_text = soup.get_text(separator="\n").strip()
-#     return plain_text, []
-
 def extract_text_and_tables_from_html(html_text: str) -> tuple[str, list[str]]:
     soup = BeautifulSoup(html_text, "html.parser")
 

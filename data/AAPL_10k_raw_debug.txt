@@ -1,0 +1,82 @@
+==== AAPL (2023) ====
+
+tention.
+Item 1B.    Unresolved Staff Comments
+None.
+Item 1C.    Cybersecurity
+Not applicable.
+Apple Inc. | 2023 Form 10-K | 16
+Item 2.    Properties
+The Company’s headquarters is located in Cupertino, California. As of September 30, 2023, the Company owned or leased facilities and land for corporate functions, R&D, data centers, retail and other purposes at locations throughout the U.S. and in various places outside the U.S. The Company believes its existing facilities and equipment, which are used by all reportable segments, are in good operating condition and are suitable for the conduct of its business.
+Item 3.    Legal Proceedings
+Epic Games
+Epic Games, Inc. (“Epic”) filed a lawsuit in the U.S. District Court for the Northern District of California (the “District Court”) against the Company alleging violations of federal and state antitrust laws and California’s unfair competition law based upon the Company’s operation of its App Store. On September 10, 2021, the District Court ruled in favor of the Company with respect to nine out of the ten counts included in Epic’s claim. The District Court found that certain provisions of the Company’s App Store Review Guidelines violate California’s unfair competition law and issued an injunction enjoining the Company from prohibiting developers from including in their apps external links that direct customers to purchasing mechanisms other than Apple in-app purchasing. The injunction applies to apps on the U.S. storefront of the iOS and iPadOS App Store. On April 24, 2023, the U.S. Court of Appeals for the Ninth Circuit (the “Circuit Court”) affirmed the District Court’s ruling. On June 7, 2023, the Company and Epic filed petitions with the Circuit Court requesting further review of the decision. On June 30, 2023, the Circuit Court denied both petitions. On July 17, 2023, the Circuit Court granted Apple’s motion to stay enforcement of the injunction pending appeal to the U.S. Supreme Court. If the U.S. Supreme Court denies Apple’s petition, the stay of the injunction will expire.
+Masimo
+Masimo Corporation and Cercacor Laboratories, Inc. (together, “Masimo”) filed a complaint before the U.S. International Trade Commission (the “ITC”) alleging infringement by the Company of five patents relating to the functionality of the blood oxygen feature in Apple Watch Series 6 and 7. In its complaint, Masimo sought a permanent exclusion order prohibiting importation to the United States of certain Apple Watch models that include blood oxygen sensing functionality. On October 26, 2023, the ITC entered a limited exclusion order (the “Order”) prohibiting importation and sales in the United States of Apple Watch models with blood oxygen sensing functionality, which includes Apple Watch Series 9 and Ultra 2. The Order will not go into effect until the end of the administrative review period, which is currently expected to end on December 25, 2023. The Company intends to appeal the Order and seek a stay pending the appe
+
+---
+
+==== AAPL (2024) ====
+
+ecurity processes and incident response. A dedicated Supplier Trust team manages information security risks the Company is exposed to through its supplier relationships. The Company has processes to log, track, address, and escalate for further assessment and report, as appropriate, cybersecurity incidents across the Company and its suppliers to senior management and the Audit and Finance Committee (the “Audit Committee”) of the Board. The Company’s enterprise risk management program is designed to identify, asse
+ss, and monitor the Company’s business risks, including financial, operational, compliance and reputational risks, and reflects management’s assessment of cybersecurity risks.
+The Audit Committee assists the Board in the oversight and monitoring of cybersecurity matters. The Audit Committee regularly reviews and discusses the Company’s cybersecurity risks with management, including the Company’s Head of Corporate Information Security, its General Counsel and the Heads of Compliance and Business Conduct, Business Assurance, and Internal Audit, and receives updates, as necessary, regarding cybersecurity incidents. The Chair of the Audit Committee regularly reports the substance of such reviews and discussions to the Board, as necessary, and recommends to the Board such actions as the Audit Committee deems appropriate.
+For a discussion of the Company’s cybersecurity-related risks, see Item 1A of this Form 10-K under the heading “Risk Factors.”
+Apple Inc. | 2024 Form 10-K | 17
+Item 2.    Properties
+The Company’s headquarters is located in Cupertino, California. As of September 28, 2024, the Company owned or leased facilities and land for corporate functions, R&D, data centers, retail and other purposes at locations throughout the U.S. and in various places outside the U.S. The Company believes its existing facilities and equipment, which are used by all reportable segments, are in good operating condition and are suitable for the conduct of its business.
+Item 3.    Legal Proceedings
+Digital Markets Act Investigations
+On March 25, 2024, the Commission announced that it had opened two formal noncompliance investigations against the Company under the DMA. The Commission’s investigations concern (1) Article 5(4) of the DMA, which relates to how developers may communicate and promote offers to end users for apps distributed through the App Store as well as how developers may conclude contracts with those end users; and (2) Article 6(3) of the DMA, which relates to default settings, uninstallation of apps, and a web browser choice screen on iOS. On June 24, 2024, the Commission announced its preliminary findings in the Article 5(4) investigation alleging that the Company’s App Store rules are in breach of the DMA and announced that it had opened a third formal investigation against the Company regarding whether the Company’s new contractual requirements for third-party app developers and app marketplaces may violate the DMA. If the Commission make
+
+---
+
+==== AAPL (2024) ====
+
+Item 2.    Properties  
+The Company’s headquarters is located in Cupertino, California.  
+As of September 28, 2024, the Company owned or leased facilities and land for  
+corporate functions, R&D, data centers, retail and other purposes at locations  
+throughout the U.S. and in various places outside the U.S.  
+The Company believes its existing facilities and equipment, which are used by  
+all reportable segments, are in good operating condition and are suitable for  
+the conduct of its business.  
+Item 3.    Legal Proceedings
+...
+
+
+
+Query: "What were the total revenue and net income for the latest fiscal year?"
+
+Answer Instruction
+1. Begin by locating the financial statements section in the company's latest 10-K filing.
+    - In this case, the company is Apple Inc., and we are looking at their filings from 2023. The financial statements section can be found starting on page 89.
+2. Search for the "Income Statement" or "Statement of Operations" within the financial statements section.
+    - The Income Statement can be found on page 89, under the caption "Statement of Operations."
+3. Locate the information on total revenue and net income for the latest fiscal year (2023).
+    - Total net sales were $383.3 billion during 2023, as stated in the Income Statement.
+    - Net income was $97.0 billion during 2023, also stated in the Income Statement.
+
+
+1. What is the company’s primary business model and revenue drivers?
+2. What were the total revenue and net income for the latest fiscal year?
+3. What was the year-over-year revenue growth?
+4. What are the top three risk factors disclosed in the report?
+5. What lawsuits or regulatory actions were disclosed in Item 3 or Item 8, and what is their estimated financial impact?
+6. How did each operating segment perform (revenue, margins)?
+7. How have operating cash flow (OCF) and free cash flow (FCF) trended?
+8. Did the company repurchase shares or issue dividends this year?
+9. Which macroeconomic risks (e.g., inflation, tariffs) are highlighted?
+10. What strategic priorities did management emphasize for the next year?
+
+
+
+
+
+=== Finfusion 응답 ===
+1. Identify the most recent fiscal year reported in the SEC 10-K filing:
+   - In both the 2023, 2023, and 2023 filings, the latest fiscal year discussed is 2023.
+   
+2. Locate the financial statement section in the 10-K filing, find the income statement for the latest fiscal year within this section:
+   - In the 2023 filing, under "Item: Item 8 - Financial Statements and Supplementary Data," total net sales (revenue) were $383.3 billion and net income was $97.0 billion during 2023.
+
