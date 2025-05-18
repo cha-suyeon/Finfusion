@@ -28,7 +28,8 @@
 - ✅ "추정 금지", "단계별 설명" 등 프롬프트 지침을 충실히 따르며 **프롬프트 준수(Prompt Adherence)** 뛰어남  
 - ✅ 질문 범위(사업 모델 + 수익원)를 빠짐없이 다루고, **사실 기반의 객관적 응답(Factuality)** 으로 **완결성(Completeness)** 충족
 
-📂 실험 결과는 [result](https://github.com/cha-suyeon/Finfusion/tree/master/results) 폴더에서 확인하실 수 있습니다
+📂 실험 결과는 [result](https://github.com/cha-suyeon/Finfusion/tree/master/results) 폴더에서 확인하실 수 있습니다.
+- CLICK! 👉 [ABNB](https://github.com/cha-suyeon/Finfusion/blob/master/results/ABNB/results_ABNB_20250518_183438.md), [COST](https://github.com/cha-suyeon/Finfusion/blob/master/results/COST/results_COST_20250517_223302.md), [NKE](https://github.com/cha-suyeon/Finfusion/blob/master/results/NKE/results_NKE_20250518_182254.md), [SBUX](https://github.com/cha-suyeon/Finfusion/blob/master/results/SBUX/results_SBUX_20250518_180241.md), [UBER](https://github.com/cha-suyeon/Finfusion/blob/master/results/UBER/results_UBER_20250518_175002.md), [V](https://github.com/cha-suyeon/Finfusion/blob/master/results/V/results_V_20250517_220135.md)
 
 <br>
 
