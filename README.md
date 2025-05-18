@@ -11,6 +11,21 @@
 
 ---
 
+## 👩‍🔬 실험 결과 (Uber – Business Model & Revenue Drivers)
+
+**Question:** *What is the company’s primary business model and revenue drivers?*  
+**Extracted from SEC 10-K (2024 filing, FY 2023 data):** 
+> “Uber is one of the largest open platforms for work in the world, providing accessible, flexible work in approximately 70 countries. Drivers are key parts of the marketplaces that Uber has created through its apps.”  
+> “For the year ended December 31, 2023, the Company’s Mobility and Delivery revenue, net of incentives, was $32.0 billion and discounts, loyalty programs, promotions, refunds, and credits provided to end-users who are not customers totaled $1.7 billion.”
+
+**평가 요약 (정성적 기준 기반):**
+- ✅ 보고서 내 수치 ($32.0B, $1.7B)를 정확히 인용하고, 출처 항목까지 명확히 표기하여 **정확성(Accuracy)** 우수  
+- ✅ "추정 금지", "단계별 설명" 등 프롬프트 지침을 충실히 따르며 **프롬프트 준수(Prompt Adherence)** 뛰어남  
+- ✅ 질문 범위(사업 모델 + 수익원)를 빠짐없이 다루고, **사실 기반의 객관적 응답**으로 **완결성** 충족
+
+
+---
+
 ## 🧩 Key Features
 
 - 🔍 **Hybrid Retrieval**: BM25 + FAISS + RRF (Reciprocal Rank Fusion) 기반 다단계 검색  
