@@ -75,7 +75,6 @@ class LlmAgent:
                 Answer:
                 """
 
-
     def answer(self, query: str, ticker: str, top_k: int = config.TOP_K_FINAL, answer_template: list[str] | None = None) -> dict:
         docs: List[Document] = retrieve_relevant_chunks(query, ticker, top_k=top_k)
         prompt = self.build_prompt(query, docs, ticker, answer_template=answer_template)
@@ -147,7 +146,6 @@ def refine_followup_with_context(followup_question: str, prior_question: str, pr
     response = llm.invoke(prompt)
     return response.content.strip()
 
-# 새 기능: 보정된 query로 retrieval + 응답 생성
 def answer_followup_with_retrieval(followup_question: str, ticker: str, chat_history: list[dict]) -> str:
     if not chat_history:
         return "Cannot proceed: No prior chat history."

@@ -41,10 +41,9 @@ def main():
         for r in results:
             print(f"\n=== Q{r['id']} ===\n{r['question']}\n\n{r['answer']}\n")
 
-        # 잠시 비활성화
-        # follow_up = input("\n💬 Would you like to enter chat mode for follow-up questions? [y/n]: ")
-        # if follow_up.lower() == "y":
-        #     chat_loop(args.ticker, output_path)
+        follow_up = input("\n💬 Would you like to enter chat mode for follow-up questions? [y/n]: ")
+        if follow_up.lower() == "y":
+            chat_loop(args.ticker, output_path)
 
     elif args.query:
         print(f"[MODE] Single Query Mode")

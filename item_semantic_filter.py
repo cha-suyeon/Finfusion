@@ -1,5 +1,4 @@
 # item_semantic_filter.py
-
 from typing import List, Dict
 from langchain_huggingface import HuggingFaceEmbeddings
 import numpy as np

@@ -1,15 +1,7 @@
-
 # chunker.py
 import re
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain.docstore.document import Document
-
-# def chunk_text_by_item(docs: list[tuple[str, str, list[str]]], chunk_size=1024, chunk_overlap=100) -> list[Document]:
-#     splitter = RecursiveCharacterTextSplitter(
-#         chunk_size=chunk_size,
-#         chunk_overlap=chunk_overlap,
-#         separators=["\n\n", "\n", ". ", " "]
-#     )
 
 def chunk_text_by_item(
                         docs: list[tuple[str, str, list[str]]],

@@ -18,6 +18,7 @@ def generate_answer_template_from_llm(question: str, ticker: str | None = None) 
                 2.
                 3.
             """
+    
     llm = ChatOllama(model="openhermes")  # or your preferred LLM model
     response = llm.invoke(prompt).content.strip()
     lines = [line.strip("- ").strip() for line in response.split("\n") if line.strip()]

@@ -55,7 +55,6 @@ def retrieve_relevant_chunks(query: str, ticker: str, top_k: int = 20) -> List[D
     reranked = rerank_with_llm(query, final_docs, top_k=top_k)
     return reranked
 
-
 def _reciprocal_rank_fusion(bm25_docs, vector_docs, k=60):
     from collections import defaultdict
     def get_doc_id(doc):
