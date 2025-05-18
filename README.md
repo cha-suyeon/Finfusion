@@ -1,9 +1,9 @@
 # 🧠 FinFusion: RAG-Based Financial Analysis Assistant
 
 
-[![PDF](https://img.shields.io/badge/PDF-View-blue?logo=adobeacrobatreader&logoColor=white)](https://github.com/cha-suyeon/Finfusion/blob/master/FinFusion.pdf)[![YouTube](https://img.shields.io/badge/Watch-Video-red?logo=youtube&logoColor=white)](링크삽입)
+[![PDF](https://img.shields.io/badge/View-PDF-blue?logo=adobeacrobatreader&logoColor=white)](https://github.com/cha-suyeon/Finfusion/blob/master/FinFusion.pdf)
 
-
+[![YouTube](https://img.shields.io/badge/Watch-Video-red?logo=youtube&logoColor=white)](링크삽입)
 
 
 **FinFusion**은 SEC 10-K 보고서를 분석하고 요약하기 위해 설계된 **RAG 기반 금융 특화 QA 시스템**입니다.  
