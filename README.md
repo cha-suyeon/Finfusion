@@ -9,8 +9,6 @@
 **FinFusion**은 SEC 10-K 보고서를 분석하고 요약하기 위해 설계된 **RAG 기반 금융 특화 QA 시스템**입니다.  
 다단계 문서 검색, 임베딩 기반 벡터 검색, 고도화된 프롬프트 전략을 통해 **해석 가능한 투자 인사이트**를 제공합니다.
 
-<br>
-
 ---
 
 ## 👩‍🔬 실험 결과 (Uber – Business Model & Revenue Drivers)
@@ -30,7 +28,7 @@
 - ✅ "추정 금지", "단계별 설명" 등 프롬프트 지침을 충실히 따르며 **프롬프트 준수(Prompt Adherence)** 뛰어남  
 - ✅ 질문 범위(사업 모델 + 수익원)를 빠짐없이 다루고, **사실 기반의 객관적 응답(Factuality)**으로 **완결성(Completeness)** 충족
 
-</br>
+<br>
 
 ---
 
@@ -41,6 +39,8 @@
 - 📑 **SEC Filing Parsing**: SEC 10-K 보고서 구조(Item 단위) 기반 파싱 및 처리  
 - 🧾 **Item-Level Chunking**: PART/ITEM 기준으로 문서 구조화  
 - 💡 **Investment Memo Generator**: 투자 인사이트 요약 및 리스크 분석 자동 생성
+
+<br>
 
 ---
 
