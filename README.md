@@ -9,16 +9,21 @@
 **FinFusion**은 SEC 10-K 보고서를 분석하고 요약하기 위해 설계된 **RAG 기반 금융 특화 QA 시스템**입니다.  
 다단계 문서 검색, 임베딩 기반 벡터 검색, 고도화된 프롬프트 전략을 통해 **해석 가능한 투자 인사이트**를 제공합니다.
 
-</br>
+</br></br>
 
 ---
 
 ## 👩‍🔬 실험 결과 (Uber – Business Model & Revenue Drivers)
 
 **Question:** *What is the company’s primary business model and revenue drivers?*  
-**Extracted from SEC 10-K (2024 filing, FY 2023 data):** 
+
+</br>
+
+**Model's Answer (based on SEC 10-K, 2024 filing for FY 2023):**
 > “Uber is one of the largest open platforms for work in the world, providing accessible, flexible work in approximately 70 countries. Drivers are key parts of the marketplaces that Uber has created through its apps.”  
 > “For the year ended December 31, 2023, the Company’s Mobility and Delivery revenue, net of incentives, was $32.0 billion and discounts, loyalty programs, promotions, refunds, and credits provided to end-users who are not customers totaled $1.7 billion.”
+
+</br>
 
 **평가 요약 (정성적 기준 기반):**
 - ✅ 보고서 내 수치 ($32.0B, $1.7B)를 정확히 인용하고, 출처 항목까지 명확히 표기하여 **정확성(Accuracy)** 우수  
