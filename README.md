@@ -47,7 +47,7 @@ source rag-finance/bin/activate
 2. 필요 패키지 설치
 
 ```bash
-
+pip install -r requirements.txt
 ```
 requirements.txt에는 본 프로젝트에 필요한 모든 Python 패키지가 포함되어 있습니다.
 
