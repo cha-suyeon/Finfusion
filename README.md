@@ -28,6 +28,8 @@
 - ✅ "추정 금지", "단계별 설명" 등 프롬프트 지침을 충실히 따르며 **프롬프트 준수(Prompt Adherence)** 뛰어남  
 - ✅ 질문 범위(사업 모델 + 수익원)를 빠짐없이 다루고, **사실 기반의 객관적 응답(Factuality)** 으로 **완결성(Completeness)** 충족
 
+📂 실험 결과는 [result](https://github.com/cha-suyeon/Finfusion/tree/master/results) 폴더에서 확인하실 수 있습니다
+
 <br>
 
 ---

@@ -1,42 +1,35 @@
 import os
 import json
-from datetime import datetime
 
-def generate_markdown_report(result_path: str, output_dir: str = "reports", report_name: str | None = None):
-    with open(result_path, "r") as f:
+def json_to_markdown(input_path, output_path):
+    with open(input_path, "r", encoding="utf-8") as f:
         data = json.load(f)
 
-    if not data:
-        raise ValueError("Empty result file.")
+    with open(output_path, "w", encoding="utf-8") as md:
+        md.write("# 📝 SEC 10-K QA Results\n\n")
+        for i, item in enumerate(data, start=1):
+            md.write(f"## Q{i}. {item['question'].strip()}\n\n")
+            md.write(f"**Prompt**\n\n```\n{item['prompt'].strip()}\n```\n\n")
+            md.write(f"**Answer**\n\n```\n{item['answer'].strip()}\n```\n\n")
+            md.write("---\n\n")
 
-    ticker = data[0].get("ticker", "Unknown")
-    os.makedirs(output_dir, exist_ok=True)
+def batch_process_results(root_dir="results"):
+    for company in os.listdir(root_dir):
+        company_dir = os.path.join(root_dir, company)
+        if os.path.isdir(company_dir):
+            for filename in os.listdir(company_dir):
+                if filename.endswith(".json") and filename.startswith("results_"):
+                    json_path = os.path.join(company_dir, filename)
+                    base_name = os.path.splitext(filename)[0]
+                    output_md = os.path.join(company_dir, f"{base_name}.md")
 
-    ts = datetime.now().strftime("%Y%m%d_%H%M%S")
-    filename = report_name or f"{ticker}_report_{ts}.md"
-    filepath = os.path.join(output_dir, filename)
+                    # 이미 .md 파일이 있으면 건너뜀
+                    if os.path.exists(output_md):
+                        print(f"[⏭️] Skipped (already exists): {output_md}")
+                        continue
 
-    with open(filepath, "w") as f:
-        f.write(f"# {ticker} SEC 10-K QA Report\n\n")
-        for item in data:
-            qid = item.get("id", "?")
-            question = item.get("question", "(No question)")
-            answer = item.get("answer", "(No answer)")
-
-            f.write(f"## Q{qid}: {question}\n\n")
-            f.write(f"**Answer:**\n\n{answer.strip()}\n\n")
-
-            if tables:
-                f.write(f"**Relevant Tables:**\n\n")
-                for t in tables[:3]:
-                    f.write(f"> {t.replace('\n', '\n> ')}\n\n")
-
-    print(f"[✓] Markdown report saved to: {filepath}")
-    return filepath
+                    json_to_markdown(json_path, output_md)
+                    print(f"[✅] Generated: {output_md}")
 
 if __name__ == "__main__":
-    input_path = "/Users/suyeoncha/Finfusion/results/SBUX/results_SBUX.json"
-    output_dir = "reports"
-    generate_markdown_report(input_path, output_dir, report_name="2023_SBUX_report.md")
-
-    print(f"[DONE] Report saved to {output_dir}/2023_SBUX_report.md")
+    batch_process_results("results")
